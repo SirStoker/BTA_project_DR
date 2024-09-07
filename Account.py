@@ -11,46 +11,49 @@ class Account:
     def write_to_history(self, hist_dict):
         pass 
         # TODO:
-        # Comment and refine the code below so that the dictionary 
-        # from hist_dict is added to hist.json
+    # Прокомментируйте и уточните код ниже, чтобы словарь 
+    # из hist_dict был добавлен в файл hist.json
     
         # self.file_manager 
 
     def deposit(self, amount):
-        pass
-        # TODO:
-        # implement the deposit process with all necessary checks
-        # amount must be a integer greater than 0
-        
-        # in case of a positive outcome, use this construct to write it to a JSON file
+        status = 'failure'
 
-        # history_message = HistoryMessages.deposit("success", amount, self.balance)
-        # self.write_to_history(history_message)
+        try:
+            amount = int(amount)
+            if amount > 0:
+                self.balance += amount 
+                print(f'\tYou have deposited _ {amount} € _ into your account')
+                status = 'success'
+            else:
+                print(f'\t_!!_ Invalid amount entered: _ {amount} _. Please try again.')
+        except ValueError:
+            print(f'\t_!!_ Invalid amount entered: _ {amount} _. Please try again.')
+    
+        history_message = HistoryMessages.deposit(status, amount, self.balance)
+        self.write_to_history(history_message)
+        print(history_message)
 
-        # in case of a negative outcome, use this construct to write to the JSON file
-            
-        # history_message = HistoryMessages.deposit("failure", amount, self.balance)
-        # self.write_to_history(history_message)
 
     def debit(self, amount):
         pass
         # TODO:
-        # implement account debits with all necessary checks
-        # amount must be a integer greater than 0
-        # if amount is greater than the amount in the account (insufficient funds) the operation should not work
+    # реализовать снятие средств с аккаунта с учетом всех необходимых проверок
+    # сумма должна быть целым числом больше 0
+    # если сумма больше, чем доступно на счету (недостаточно средств), операция не должна выполняться
 
-        # in case of positive outcome use this construct to write to JSON file
+    # в случае успешного исхода использовать эту конструкцию для записи в JSON файл
 
-        # history_message = HistoryMessages.debit("success", amount, self.balance)
-        # self.write_to_history(history_message)
+    # history_message = HistoryMessages.debit("success", amount, self.balance)
+    # self.write_to_history(history_message)
 
-        # in case of a negative outcome, use this construct to write to a JSON file
-        
-        # history_message = HistoryMessages.debit("failure", amount, self.balance)
-        # self.write_to_history(history_message)
+    # в случае неудачного исхода использовать эту конструкцию для записи в JSON файл
+
+    # history_message = HistoryMessages.debit("failure", amount, self.balance)
+    # self.write_to_history(history_message)
 
     def get_balance(self):
-        return self.balance
+        return f"_ {self.balance} € "
 
     def dict_to_string(self, dict):
         if dict["operation_type"] != "exchange":

@@ -13,9 +13,9 @@ def main():
         if choice == "0":
             return
         elif choice == "1":
-            print(f"Current Balance: {user_account.get_balance()}")
+            print(f"\n >> Current Balance: {user_account.get_balance()} <<")
         elif choice == "2":
-            deposit_amount = input("Enter deposit amount: ")
+            deposit_amount = input(f"\n >> Enter deposit amount: _ ")
             user_account.deposit(deposit_amount)
         elif choice == "3":
             withdraw_amount = input("Enter deposit amount: ")

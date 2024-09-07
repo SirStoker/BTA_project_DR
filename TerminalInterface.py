@@ -1,7 +1,7 @@
 class TerminalInterface:
     @staticmethod
     def show_commands():
-        print("Available commands:")
+        print("\nAvailable commands:")
         print("1. View Balance")
         print("2. Deposit Funds")
         print("3. Withdraw Funds")
