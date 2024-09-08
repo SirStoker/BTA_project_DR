@@ -3,7 +3,7 @@ from HistoryMessages import HistoryMessages
 
 
 class Account:
-    def __init__(self, balance = 0):
+    def __init__(self, balance=0):
         self.balance = balance
         self.file_manager = FileManager()
         self.hist_file_path = "hist.json"
@@ -15,22 +15,19 @@ class Account:
 
     def deposit(self, amount):
         status = 'failure'
-
         try:
             amount = int(amount)
             if amount > 0:
                 self.balance += amount 
-                print(f'\tYou have deposited _ {amount} € _ into your account')
+                # print(f'\tYou have deposited _ {amount} € _ into your account')
                 status = 'success'
             else:
-                print(f'\t_!!_ Invalid amount entered: _ {amount} _. Please try again.')
+                print('Invalid amount for deposit!')
         except ValueError:
-            print(f'\t_!!_ Invalid amount entered: _ {amount} _. Please try again.')
+            print('Invalid amount for deposit!')
     
         history_message = HistoryMessages.deposit(status, amount, self.balance)
         self.write_to_history(history_message)
-        
-        print(history_message) # это потом убрать
 
 
     def debit(self, amount):
@@ -40,21 +37,20 @@ class Account:
             if 0 < amount <= self.balance:
                 self.balance -= amount
                 status = 'success'
-                print(f'\tYou have withdrawn _ {amount} € _ from your account.\n\t>> Your current balance is _ {self.balance} € <<') 
+                # print(f'\tYou have withdrawn _ {amount} € _ from your account.\n\t>> Your current balance is _ {self.balance} € <<') 
             elif amount > self.balance:
-                print(f'\t_!!_ You are exceeding your account limit. Please try a smaller amount.') 
+                print('Invalid amount for debit!') 
             elif amount <= 0:
-                print(f'\t_!!_ Invalid amount entered: _ {amount} _. Please try again.')
-
+                print('Invalid amount for debit!')
         except ValueError:
-            print(f'\t_!!_ Invalid amount entered: _ {amount} _. Please try again.')
+            print('Invalid amount for debit!')
         
         history_message = HistoryMessages.debit(status, amount, self.balance)
         self.write_to_history(history_message)
         
 
     def get_balance(self):
-        return f"_ {self.balance} € "
+        return self.balance
 
     def dict_to_string(self, dict):
         if dict["operation_type"] != "exchange":
@@ -64,7 +60,15 @@ class Account:
         
 
     def get_history(self):
-        pass
-        # TODO:
-        # implement a process that returns transaction history line by line
-        # use the dict_to_string method to create a string from a dictionary
+        data_dicts = self.file_manager.load_data(self.hist_file_path)
+        if self.file_manager.new_session:
+            print('____ >> OLD Transaction History << ____')
+            self.print_history(data_dicts)
+        else:
+            print('____ >> Your Transaction History << ____')
+            self.print_history(data_dicts)
+            
+
+    def print_history(self, hist_dict):
+        for item in hist_dict:
+                print(self.dict_to_string(item))

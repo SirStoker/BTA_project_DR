@@ -7,7 +7,7 @@ class HistoryMessages:
             "amount_of_deposit": amount,
             "total_balance": total_balance
         }
-    # @staticmethod
+    @staticmethod
     def debit(status, amount, total_balance):
         return {
             "operation_type": "debit",
@@ -15,7 +15,7 @@ class HistoryMessages:
             "amount_of_deposit": amount,
             "total_balance": total_balance
         }
-    # @staticmethod
+    @staticmethod
     def exchange(status, amount, exchange_amount, currency_from, currency_to):
         return {
             "operation_type": "exchange",

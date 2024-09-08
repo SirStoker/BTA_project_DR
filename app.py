@@ -13,7 +13,7 @@ def main():
         if choice == "0":
             return
         elif choice == "1":
-            print(f"\n >> Current Balance: {user_account.get_balance()} <<")
+            print(f"\n >> Current Balance: _ {user_account.get_balance()} <<")
         elif choice == "2":
             deposit_amount = input(f"\n >> Enter deposit amount: _ ")
             user_account.deposit(deposit_amount)
@@ -21,8 +21,9 @@ def main():
             withdraw_amount = input(f"\n >> Enter deposit amount: _ ")
             user_account.debit(withdraw_amount)
         elif choice == "4":
-            history = user_account.get_history()
-            print(history)
+            user_account.get_history()
+            # history = user_account.get_history()
+            # print(history)
         elif choice == "5":
             available_currency = " ".join(exchange.get_exchange_rates().keys())
             print(f"Select a currency from the available currencies: {available_currency}")

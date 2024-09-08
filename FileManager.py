@@ -1,43 +1,44 @@
 import json
 
 class FileManager:
-    def load_data(self, filename):
-        pass
-        # TODO:
-        # Implement a process that reads the contents of the `filename` file 
-        # and returns the text.
+    def __init__(self, new_session=True):
+        self.new_session = new_session
 
     def save_data(self, filename, data):
-        try:
-            with open(filename, 'r') as file:
-                try:
-                    data_file = json.load(file)
-                except json.JSONDecodeError:
-                    data_file = []
-        except FileNotFoundError:
-            data_file = []
+        if self.new_session:
+            self.new_session = False
+            self.write_json([data], filename)
+        else:
+            self.add_to_json(data, filename)
 
-        data_file.append(data)
-    
-        with open(filename, 'w') as file:
-            json.dump(data_file, file, indent=4)
-            file.write('\n')
-        
-
-    def read_json(self, json_file_path):
-        pass
-        # TODO:
-        # Implement a process that reads the contents of a file whose path is stored in the `json_file_path` variable 
-        # and returns a list of dictionaries
-        
-    def write_json(self, list_of_dicts, json_file_path):
-        pass
-        # TODO:
-        # Implement a process that writes a list of dictionaries from list_of_dicts to the `json_file_path` file
 
     def add_to_json(self, data, json_file_path):
-        pass
-        # TODO:
-        # Implement a process that gets the dictionary in the data variable and adds it to the JSON `json_file_path`
+         data_exist = self.read_json(json_file_path)
+         data_exist.append(data)
+         self.write_json(data_exist, json_file_path)
 
+
+    def read_json(self, json_file_path):
+        try:
+            with open(json_file_path, 'r') as file:
+                data = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            data = []
+        return data
+        
+
+    def write_json(self, list_of_dicts, json_file_path):
+        with open(json_file_path, 'w') as file:
+            json.dump(list_of_dicts, file, indent=4)
+            file.write('\n')
+
+
+    def load_data(self, filename):
+        with open(filename, 'r') as file:
+            try:
+                return json.load(file)
+            except (FileNotFoundError, json.JSONDecodeError):
+                return []
+
+        
             
