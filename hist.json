@@ -1,3 +1,86 @@
 [
-
+    {
+        "operation_type": "deposit",
+        "status": "success",
+        "amount_of_deposit": 12,
+        "total_balance": 12
+    },
+    {
+        "operation_type": "debit",
+        "status": "failure",
+        "amount_of_deposit": 15,
+        "total_balance": 12
+    },
+    {
+        "operation_type": "debit",
+        "status": "success",
+        "amount_of_deposit": 11,
+        "total_balance": 1
+    },
+    {
+        "operation_type": "deposit",
+        "status": "success",
+        "amount_of_deposit": 15,
+        "total_balance": 15
+    },
+    {
+        "operation_type": "deposit",
+        "status": "success",
+        "amount_of_deposit": 12,
+        "total_balance": 27
+    },
+    {
+        "operation_type": "debit",
+        "status": "success",
+        "amount_of_deposit": 5,
+        "total_balance": 22
+    },
+    {
+        "operation_type": "debit",
+        "status": "failure",
+        "amount_of_deposit": 30,
+        "total_balance": 22
+    },
+    {
+        "operation_type": "debit",
+        "status": "failure",
+        "amount_of_deposit": "12s",
+        "total_balance": 22
+    },
+    {
+        "operation_type": "debit",
+        "status": "success",
+        "amount_of_deposit": 20,
+        "total_balance": 2
+    },
+    {
+        "operation_type": "debit",
+        "status": "failure",
+        "amount_of_deposit": -23,
+        "total_balance": 2
+    },
+    {
+        "operation_type": "deposit",
+        "status": "success",
+        "amount_of_deposit": 13,
+        "total_balance": 13
+    },
+    {
+        "operation_type": "debit",
+        "status": "failure",
+        "amount_of_deposit": 0,
+        "total_balance": 13
+    },
+    {
+        "operation_type": "debit",
+        "status": "failure",
+        "amount_of_deposit": -120,
+        "total_balance": 13
+    },
+    {
+        "operation_type": "debit",
+        "status": "success",
+        "amount_of_deposit": 13,
+        "total_balance": 0
+    }
 ]

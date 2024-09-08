@@ -8,9 +8,21 @@ class FileManager:
         # and returns the text.
 
     def save_data(self, filename, data):
-        pass
-        # TODO:
-        # Implement a process that writes the contents of `data` to the file `filename`
+        try:
+            with open(filename, 'r') as file:
+                try:
+                    data_file = json.load(file)
+                except json.JSONDecodeError:
+                    data_file = []
+        except FileNotFoundError:
+            data_file = []
+
+        data_file.append(data)
+    
+        with open(filename, 'w') as file:
+            json.dump(data_file, file, indent=4)
+            file.write('\n')
+        
 
     def read_json(self, json_file_path):
         pass

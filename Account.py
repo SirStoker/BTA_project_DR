@@ -1,6 +1,7 @@
 from FileManager import FileManager
 from HistoryMessages import HistoryMessages
 
+
 class Account:
     def __init__(self, balance = 0):
         self.balance = balance
@@ -9,12 +10,8 @@ class Account:
         
 
     def write_to_history(self, hist_dict):
-        pass 
-        # TODO:
-    # Прокомментируйте и уточните код ниже, чтобы словарь 
-    # из hist_dict был добавлен в файл hist.json
-    
-        # self.file_manager 
+        self.file_manager.save_data(self.hist_file_path, hist_dict) 
+
 
     def deposit(self, amount):
         status = 'failure'
@@ -32,25 +29,29 @@ class Account:
     
         history_message = HistoryMessages.deposit(status, amount, self.balance)
         self.write_to_history(history_message)
-        print(history_message)
+        
+        print(history_message) # это потом убрать
 
 
     def debit(self, amount):
-        pass
-        # TODO:
-    # реализовать снятие средств с аккаунта с учетом всех необходимых проверок
-    # сумма должна быть целым числом больше 0
-    # если сумма больше, чем доступно на счету (недостаточно средств), операция не должна выполняться
+        status = 'failure'
+        try:
+            amount = int(amount)
+            if 0 < amount <= self.balance:
+                self.balance -= amount
+                status = 'success'
+                print(f'\tYou have withdrawn _ {amount} € _ from your account.\n\t>> Your current balance is _ {self.balance} € <<') 
+            elif amount > self.balance:
+                print(f'\t_!!_ You are exceeding your account limit. Please try a smaller amount.') 
+            elif amount <= 0:
+                print(f'\t_!!_ Invalid amount entered: _ {amount} _. Please try again.')
 
-    # в случае успешного исхода использовать эту конструкцию для записи в JSON файл
-
-    # history_message = HistoryMessages.debit("success", amount, self.balance)
-    # self.write_to_history(history_message)
-
-    # в случае неудачного исхода использовать эту конструкцию для записи в JSON файл
-
-    # history_message = HistoryMessages.debit("failure", amount, self.balance)
-    # self.write_to_history(history_message)
+        except ValueError:
+            print(f'\t_!!_ Invalid amount entered: _ {amount} _. Please try again.')
+        
+        history_message = HistoryMessages.debit(status, amount, self.balance)
+        self.write_to_history(history_message)
+        
 
     def get_balance(self):
         return f"_ {self.balance} € "
