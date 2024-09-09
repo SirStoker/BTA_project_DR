@@ -16,10 +16,9 @@ class Account:
     def deposit(self, amount):
         status = 'failure'
         try:
-            amount = int(amount)
+            amount = float(amount)
             if amount > 0:
                 self.balance += amount 
-                # print(f'\tYou have deposited _ {amount} € _ into your account')
                 status = 'success'
             else:
                 print('Invalid amount for deposit!')
@@ -33,11 +32,10 @@ class Account:
     def debit(self, amount):
         status = 'failure'
         try:
-            amount = int(amount)
+            amount = float(amount)
             if 0 < amount <= self.balance:
                 self.balance -= amount
                 status = 'success'
-                # print(f'\tYou have withdrawn _ {amount} € _ from your account.\n\t>> Your current balance is _ {self.balance} € <<') 
             elif amount > self.balance:
                 print('Invalid amount for debit!') 
             elif amount <= 0:

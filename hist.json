@@ -2,13 +2,37 @@
     {
         "operation_type": "deposit",
         "status": "success",
-        "amount_of_deposit": 234,
-        "total_balance": 234
+        "amount_of_deposit": 23.4,
+        "total_balance": 23.4
     },
     {
         "operation_type": "debit",
         "status": "success",
-        "amount_of_deposit": 32,
-        "total_balance": 202
+        "amount_of_deposit": 11.5,
+        "total_balance": 11.899999999999999
+    },
+    {
+        "operation_type": "exchange",
+        "status": "failure",
+        "pre_exchange_amount": 0.0,
+        "exchange_amount": null,
+        "currency_from": "WER",
+        "currency_to": "USD"
+    },
+    {
+        "operation_type": "exchange",
+        "status": "failure",
+        "pre_exchange_amount": 23.2,
+        "exchange_amount": null,
+        "currency_from": "WQE",
+        "currency_to": "ASD"
+    },
+    {
+        "operation_type": "exchange",
+        "status": "failure",
+        "pre_exchange_amount": 234.0,
+        "exchange_amount": null,
+        "currency_from": "WER",
+        "currency_to": "WER"
     }
 ]

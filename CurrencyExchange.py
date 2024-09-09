@@ -1,37 +1,57 @@
 from FileManager import FileManager
 from HistoryMessages import HistoryMessages
+import requests
 
 class CurrencyExchange:
     def __init__(self, balance = 0):
         self.file_manager = FileManager()
         self.hist_file_path = "hist.json"
-        
+        self.balance = balance
 
     def write_to_history(self, hist_dict):
-        pass 
-        # TODO:
-        # Comment and refine the code below so that the dictionary 
-        # from hist_dict is added to hist.json
+        self.file_manager.add_to_json(hist_dict, self.hist_file_path) 
     
-        # self.file_manager 
 
     def get_exchange_rates(self):
-        pass
-        # Implement a process that sends a get request to the link 
-        # and returns the resulting dictionary.
+        url = 'https://fake-api.apps.berlintech.ai/api/currency_exchange'
+        response = requests.get(url)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            raise Exception(f"Error: {response.status_code}")
+ 
     
     def exchange_currency(self, currency_from, currency_to, amount):
-        pass
+        exchange_rates = self.get_exchange_rates()
+        status = 'failure'
+        error_message = None
 
-        # implement a process that transfers the specified amount from currency `currency_from` 
-        # to currency `currency_to` and, if positive, returns the amount in the new currency
+        if currency_from not in exchange_rates or currency_to not in exchange_rates:
+            error_message = "Currency exchange failed"
+            print(error_message)
 
-        # with a positive outcome, the record of history looks like this 
-        # history_message = HistoryMessages.exchange("success", amount, converted_amount, currency_from, currency_to)
-        # self.write_to_history(history_message)
-        
-        # in case of a negative outcome, the history entry looks like this
-        # - if currency_from or currency_to is specified incorrectly
-        # - if amount is not a number
-        # history_message = HistoryMessages.exchange("failure", amount, None, currency_from, currency_to)
-        # self.write_to_history(history_message)
+        try:
+            amount = float(amount)
+            if amount <= 0:
+                error_message = "Amount must be a positive number"
+                print(error_message)
+        except ValueError:
+            error_message = 'Currency exchange failed!'
+            print(error_message)
+
+        if error_message:
+            history_message = HistoryMessages.exchange(status, amount, None, currency_from, currency_to)
+            self.write_to_history(history_message)
+            return None
+
+        status = 'success'
+        source_rate = exchange_rates[currency_from]
+        target_rate = exchange_rates[currency_to]
+
+        amount_in_eur = amount / source_rate
+        converted_amount = amount_in_eur * target_rate
+
+        history_message = HistoryMessages.exchange(status, amount, converted_amount, currency_from, currency_to)
+        self.write_to_history(history_message)
+
+        return converted_amount

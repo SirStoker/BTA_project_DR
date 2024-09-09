@@ -22,13 +22,11 @@ def main():
             user_account.debit(withdraw_amount)
         elif choice == "4":
             user_account.get_history()
-            # history = user_account.get_history()
-            # print(history)
         elif choice == "5":
-            available_currency = " ".join(exchange.get_exchange_rates().keys())
+            available_currency = " | ".join(exchange.get_exchange_rates().keys())
             print(f"Select a currency from the available currencies: {available_currency}")
-            source_currency = input("Enter source currency: ")
-            target_currency = input("Enter target currency: ")
+            source_currency = input("Enter source currency: ").upper()
+            target_currency = input("Enter target currency: ").upper()
             exchange_amount = input("Enter target currency: ")
 
             result = exchange.exchange_currency(source_currency, target_currency, exchange_amount)

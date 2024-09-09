@@ -30,7 +30,6 @@ class FileManager:
     def write_json(self, list_of_dicts, json_file_path):
         with open(json_file_path, 'w') as file:
             json.dump(list_of_dicts, file, indent=4)
-            file.write('\n')
 
 
     def load_data(self, filename):
